@@ -61,7 +61,7 @@ function securePlayerChoice(){
     securePlayerChoice()
 // calculate who wins
 // function evaluateWinner(){
-   
+   ggg
    
    
 let powerScale = ["paper", "scissor", "rock"];
