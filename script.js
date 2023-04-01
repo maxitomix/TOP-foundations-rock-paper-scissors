@@ -1,14 +1,40 @@
 console.log("Lets Play Rocks Papers Scissors");
 let playerChoice;
 let computerChoice;
-//annonce what round it is out of five 
-let roundCount = 1;
-console.log("Round", roundCount);
+let playerScore = 0;
+let computerScore = 0;
+let powerScale = ["paper", "scissor", "rock"];
+// console.log(powerScale)
+// console.log("Player:", powerScale.indexOf(playerChoice));
+// console.log("Computer:", powerScale.indexOf(computerChoice));
+// console.log("player minus computer:", powerScale.indexOf(playerChoice) - powerScale.indexOf(computerChoice));
+// console.log("abs;", Math.abs(powerScale.indexOf(playerChoice) - powerScale.indexOf(computerChoice)))
+// 
+function game(){
+    for (let roundCount = 1; roundCount < 6; roundCount++){
+        securePlayerChoice()
+        secureComputerChoice()
+        console.log("Round", roundCount);
+        resolveGame()
+    }
+    console.log("<===The game is complete, results below:  ===>");
+    console.log("Player Score: ", playerScore)
+    console.log("Computer Score: ", computerScore)
+    if (playerScore === computerScore){
+        console.log("The game is a Tie =/");
+    }
+    else if (playerScore > computerScore){
+        console.log("Player wins the game! =)");
+    }
+    else {
+        console.log("Player lost the game =(");
+    }
+}
+game()
 
 //ask player to choose between rock, paper or scissors
 //make the selection safe from input error, by  lowercase and ensuring its
 //either rock paper or scissor
-
 function securePlayerChoice(){
     playerChoice = prompt("Select Rocks, Paper or Scissors");
     playerChoice = playerChoice.toLowerCase();
@@ -20,7 +46,7 @@ function securePlayerChoice(){
         securePlayerChoice()
                 }
             }
- securePlayerChoice()
+
 
 
 
@@ -42,7 +68,7 @@ function secureComputerChoice(){
         }
     }
         
-secureComputerChoice()       
+      
 
 //****************** */ this is a test function to automate human player  ****************
 // function securePlayerChoice(){
@@ -65,17 +91,12 @@ secureComputerChoice()
   
    
    
-let powerScale = ["paper", "scissor", "rock"];
-console.log(powerScale)
-console.log("Player:", powerScale.indexOf(playerChoice));
-console.log("Computer:", powerScale.indexOf(computerChoice));
-console.log("player minus computer:", powerScale.indexOf(playerChoice) - powerScale.indexOf(computerChoice));
-console.log("abs;", Math.abs(powerScale.indexOf(playerChoice) - powerScale.indexOf(computerChoice)))
-let abs = Math.abs(powerScale.indexOf(playerChoice) - powerScale.indexOf(computerChoice))
+
 
 
 // calculate who wins
 function resolveGame(){
+let abs = Math.abs(powerScale.indexOf(playerChoice) - powerScale.indexOf(computerChoice))
 if (powerScale.indexOf(playerChoice) === powerScale.indexOf(computerChoice))
     {
         console.log("Its a tie! Both player picked the same.")
@@ -86,32 +107,36 @@ else
             case "paper":
                 if (abs>1){
                     console.log("Player Wins!:", playerChoice, " beats", computerChoice );
+                    playerScore++;
                 }
                 else
                 {
                     console.log("Player loses:", playerChoice, " is weaker than", computerChoice );
+                    computerScore++
                 }
                 break;
     
             case "scissor":
                 if ((powerScale.indexOf(playerChoice) > powerScale.indexOf(computerChoice))){
                     console.log("Player Wins!:", playerChoice, " beats", computerChoice);
+                    playerScore++;
                 }
                 else
                 {
                     console.log("Player loses:", playerChoice, " is weaker than", computerChoice);
+                    computerScore++
                 }
-                break;
+                break;          
                 
-    
-            
             case "rock":
                 if (abs>1){
                     console.log("Player loses:", playerChoice, " is weaker than", computerChoice  );
+                    computerScore++
                 }
                 else
                 {
                     console.log("Player Wins!:", playerChoice, " beats", computerChoice );
+                    playerScore++;
                 }
                 break;
                
@@ -119,7 +144,7 @@ else
     }
     }
 
-resolveGame()
+
 
 
 // Result display what each chose and who won.
