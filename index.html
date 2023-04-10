@@ -4,9 +4,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script defer  src="script.js"></script>
+    <title>Rock Paper Scissor</title>
 </head>
+<header><H1>Rock Paper Scissor</H1>
+</header>
 <body>
-    <script src="script.js"></script>
+<h2>Current Round: <span class="roundNumber">round number</span></h3>
+<h2>What is your choice of shape?</h2>
+<button class="buttonMenu" id="btnrock" value="rock">Rock</button>
+<button class="buttonMenu" id="btnpaper" value="paper">Paper</button>
+<button class="buttonMenu" id="btnscissor" value="scissor">Scissor</button>
+<div> 
+ 
+   
+    <p class="results" id="playerChoice">Player chose:</p>
+    <button class="buttonPlay">Play this round</button>
+    
+    <h2>Results:</h2> 
+    <div>
+    <p class="results" id="computerChoice"></p>
+    <p class="results" id="resolution"></p>
+    <p class="results" id="score"></p>
+    <p class="results" id="finalScore"></p>
+    </div>  
+
+</div>
 </body>
 </html>
