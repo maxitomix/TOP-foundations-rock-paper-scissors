@@ -5,7 +5,8 @@ let playerScore = 0;
 let computerScore = 0;
 let powerScale = ["paper", "scissor", "rock"];
 let resolution = "none"
-let roundCount = 1;
+let roundCount = 0;
+let popUp ="none"
 // console.log(powerScale)
 // console.log("Player:", powerScale.indexOf(playerChoice));
 // console.log("Computer:", powerScale.indexOf(computerChoice));
@@ -64,7 +65,7 @@ buttonPlay.addEventListener('click', playRound)
 
 function reset()
 {
-        roundCount = 1;
+        roundCount = 0;
         displayRoundNumber.textContent = `Round Number: ${roundCount}`;
         displayComputerChoice.textContent = ``;
         displayResolution.textContent = ``; 
@@ -75,26 +76,6 @@ function reset()
         
 }
 
-
-
-function gameOver ()
-    {
-         if (playerScore === computerScore)
-            {
-                displayFinalScore.textContent = `"The game is a Tie =/"`;
-              
-            }
-            else if (playerScore > computerScore)
-            {
-                displayFinalScore.textContent = `"Player wins the game! =)"`;
-                
-            }
-            else
-             {
-                displayFinalScore.textContent = `Player lost the game =(`;
-                
-            }                 
-    }
 
 
 
@@ -118,7 +99,46 @@ function playRound()
    roundCount++;
    displayRoundNumber.textContent = `Round Number: ${roundCount}`;
    displayScore.textContent = `Player Score: ${playerScore}|${computerScore} :Computer Score`;
-   if (roundCount>5) gameOver()
+   if (roundCount>4) gameOver2()
+ }
+
+ function gameOver ()
+ {
+      if (playerScore === computerScore)
+         {
+             displayFinalScore.textContent = `"The game is a Tie =/"`;
+           
+         }
+         else if (playerScore > computerScore)
+         {
+             displayFinalScore.textContent = `"Player wins the game! =)"`;
+             
+         }
+         else
+          {
+             displayFinalScore.textContent = `Player lost the game =(`;
+             
+         }                 
+ }
+
+ function gameOver2 ()
+ {
+      if (playerScore === computerScore)
+         {
+             popUp = `"The game is a Tie =/"`;
+           
+         }
+         else if (playerScore > computerScore)
+         {
+             popUp = `"Player wins the game! =)"`;
+             
+         }
+         else
+          {
+             popUp = `Player lost the game =(`;
+             
+         }    
+      confirm(popUp);reset()               
  }
 
 
