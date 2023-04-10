@@ -1,53 +1,125 @@
-// test tes test
-
 console.log("Lets Play Rocks Papers Scissors");
 let playerChoice;
 let computerChoice;
 let playerScore = 0;
 let computerScore = 0;
 let powerScale = ["paper", "scissor", "rock"];
+let resolution = "none"
+let roundCount = 1;
 // console.log(powerScale)
 // console.log("Player:", powerScale.indexOf(playerChoice));
 // console.log("Computer:", powerScale.indexOf(computerChoice));
 // console.log("player minus computer:", powerScale.indexOf(playerChoice) - powerScale.indexOf(computerChoice));
 // console.log("abs;", Math.abs(powerScale.indexOf(playerChoice) - powerScale.indexOf(computerChoice)))
 // 
-function game(){
-    for (let roundCount = 1; roundCount < 6; roundCount++){
-        securePlayerChoice()
-        secureComputerChoice()
-        console.log("Round", roundCount);
-        resolveGame()
-    }
-    console.log("<===The game is complete, results below:  ===>");
-    console.log("Player Score: ", playerScore)
-    console.log("Computer Score: ", computerScore)
-    if (playerScore === computerScore){
-        console.log("The game is a Tie =/");
-    }
-    else if (playerScore > computerScore){
-        console.log("Player wins the game! =)");
-    }
-    else {
-        console.log("Player lost the game =(");
-    }
-}
-game()
+// function game(){
+//     for (let roundCount = 1; roundCount < 6; roundCount++){
+//         securePlayerChoice()
+//         secureComputerChoice()
+//         console.log("Round", roundCount);
+//         resolveGame()
+//     }
+//     console.log("<===The game is complete, results below:  ===>");
+//     console.log("Player Score: ", playerScore)
+//     console.log("Computer Score: ", computerScore)
+//     if (playerScore === computerScore){
+//         console.log("The game is a Tie =/");
+//     }
+//     else if (playerScore > computerScore){
+//         console.log("Player wins the game! =)");
+//     }
+//     else {
+//         console.log("Player lost the game =(");
+//     }
+// }
+
 
 //ask player to choose between rock, paper or scissors
 //make the selection safe from input error, by  lowercase and ensuring its
 //either rock paper or scissor
-function securePlayerChoice(){
-    playerChoice = prompt("Select Rocks, Paper or Scissors");
-    playerChoice = playerChoice.toLowerCase();
-    if (playerChoice === "rock" || playerChoice === "paper"  || playerChoice === "scissor" ){
-        console.log("you chose", playerChoice);
-        } 
-        else {
-        console.log("You must choose only between Rock, Paper or Scissor")
-        securePlayerChoice()
-                }
+
+
+const buttonMenu = document.querySelectorAll(".buttonMenu");
+const buttonPlay = document.querySelector(".buttonPlay");
+const displayPlayerChoice = document.querySelector("#playerChoice.results");
+const displayComputerChoice = document.querySelector("#computerChoice.results");
+const displayResolution = document.querySelector("#resolution.results");
+const displayRoundNumber = document.querySelector('span');
+const displayScore = document.querySelector("#score.results");
+const displayFinalScore = document.querySelector("#finalScore.results");
+
+displayRoundNumber.textContent = `Round Number: ${roundCount}`;
+
+buttonMenu.forEach((button) => 
+    {
+    button.addEventListener("click", (event) => 
+        {
+            playerChoice = event.target.value;
+            console.log(playerChoice);
+            displayPlayerChoice.textContent = `Player chose ${playerChoice}`;
+        });
+    });
+
+buttonPlay.addEventListener('click', playRound)
+
+function reset()
+{
+        roundCount = 1;
+        displayRoundNumber.textContent = `Round Number: ${roundCount}`;
+        displayComputerChoice.textContent = ``;
+        displayResolution.textContent = ``; 
+        displayScore.textContent = ``;  
+        displayFinalScore.textContent = ``;
+        playerScore =0;
+        computerChoice =0;
+        
+}
+
+
+
+function gameOver ()
+    {
+         if (playerScore === computerScore)
+            {
+                displayFinalScore.textContent = `"The game is a Tie =/"`;
+              
             }
+            else if (playerScore > computerScore)
+            {
+                displayFinalScore.textContent = `"Player wins the game! =)"`;
+                
+            }
+            else
+             {
+                displayFinalScore.textContent = `Player lost the game =(`;
+                
+            }                 
+    }
+
+
+
+
+
+function playRound()
+{
+    secureComputerChoice();
+    displayComputerChoice.textContent = `Computer chose ${computerChoice}`;
+    resolveGame();
+    console.log(resolution)
+    switch (resolution)
+    {
+        case "tie": displayResolution.textContent = `Its a tie! Both player picked the same.`;
+                break;
+        case "player": displayResolution.textContent = `Player Wins!: ${playerChoice} beats: ${computerChoice}`;
+                break;
+        case "computer": displayResolution.textContent = `Player loses: ${playerChoice} is weaker than: ${computerChoice}`;
+                break;
+    };   
+   roundCount++;
+   displayRoundNumber.textContent = `Round Number: ${roundCount}`;
+   displayScore.textContent = `Player Score: ${playerScore}|${computerScore} :Computer Score`;
+   if (roundCount>5) gameOver()
+ }
 
 
 
@@ -101,7 +173,8 @@ function resolveGame(){
 let abs = Math.abs(powerScale.indexOf(playerChoice) - powerScale.indexOf(computerChoice))
 if (powerScale.indexOf(playerChoice) === powerScale.indexOf(computerChoice))
     {
-        console.log("Its a tie! Both player picked the same.")
+        console.log("Its a tie! Both player picked the same.");
+        resolution = "tie"
     }
 else
     {
@@ -110,11 +183,13 @@ else
                 if (abs>1){
                     console.log("Player Wins!:", playerChoice, " beats", computerChoice );
                     playerScore++;
+                    resolution = "player"
                 }
                 else
                 {
                     console.log("Player loses:", playerChoice, " is weaker than", computerChoice );
                     computerScore++
+                    resolution = "computer"
                 }
                 break;
     
@@ -122,11 +197,13 @@ else
                 if ((powerScale.indexOf(playerChoice) > powerScale.indexOf(computerChoice))){
                     console.log("Player Wins!:", playerChoice, " beats", computerChoice);
                     playerScore++;
+                    resolution = "player"
                 }
                 else
                 {
                     console.log("Player loses:", playerChoice, " is weaker than", computerChoice);
                     computerScore++
+                    resolution = "computer"
                 }
                 break;          
                 
@@ -134,11 +211,13 @@ else
                 if (abs>1){
                     console.log("Player loses:", playerChoice, " is weaker than", computerChoice  );
                     computerScore++
+                    resolution = "computer"
                 }
                 else
                 {
                     console.log("Player Wins!:", playerChoice, " beats", computerChoice );
                     playerScore++;
+                    resolution = "player"
                 }
                 break;
                
